@@ -436,19 +436,14 @@ const animate = ()=>{
                 grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width;
                 grid.position.x = firstInvader.position.x;
                 grid.position.y = lastInvader.position.y + lastInvader.width;
-
                 // grid.height = lastInvader.position.y + lastInvader.height;
               }
-
-              
 
 
             }
           }, 0);
         }
       })
-
-      
 
       // setTimeout(()=>{
       //   if(grid.position.y + grid.height >= player.position.y){
