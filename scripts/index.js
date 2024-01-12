@@ -1,14 +1,15 @@
-// import {Player} from "./scripts/Player.js";
+
+// The canvas in the index.html
 const canvas = document.querySelector('canvas');
 
 
-export const c = canvas.getContext('2d');
+// Preparing it to start drawing
+const c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-// c.fillStyle = 'red'
-// c.fillRect(12,12,100,199);
 
 
+// The player spaceship 
 class Player{
   constructor(){
     this.velocity = {
@@ -27,23 +28,30 @@ class Player{
         x: canvas.width/2 -this.width/2,
         y: canvas.height - this.height - 5
       };
+
+      // here is the program exexution starts.
+      // animate function will be calles when we instatiate the Player class.
+      animate();
     }
     this.opacity = 1
 
   };
 
   draw(){
-  //  c.fillStyle = "red";
-  //  c.fillRect(this.position.x, this.position.y, this.width, this.height); 
-      c.save()
-      c.globalAlpha = this.opacity;
-      c.drawImage(
+
+    // use the codes below incase the program failes to load the image
+    //  c.fillStyle = "red";
+    //  c.fillRect(this.position.x, this.position.y, this.width, this.height); 
+    c.save()
+    c.globalAlpha = this.opacity;
+    c.drawImage(
         this.image, 
         this.position.x, 
         this.position.y, 
         this.width, 
-        this.height);
-        c.restore()
+        this.height
+      );
+      c.restore()
   }
 
   update(){
@@ -54,6 +62,7 @@ class Player{
   }
 }
 
+// Player Spaceship bullet
 class Bullet{
   constructor({position, velocity}){
     this.position = position
@@ -74,7 +83,7 @@ class Bullet{
   }
 }
 
-
+// The particle we see when objects explode and the backgroud starts
 class Partiicles{
   constructor({position, velocity, radius, color, fades}){
     this.position = position
@@ -99,18 +108,19 @@ class Partiicles{
     this.position.x +=this.velocity.x;
     this.position.y +=this.velocity.y;
     if(this.fades)
-    this.opacity -= 0.01;
+    this.opacity -= 0.21;
   }
 }
 
 
+
+// The white invader's spaceship bullet
 class AlienBullet{
   constructor({position, velocity}){
     this.position = position
     this.velocity = velocity
     this.width =4 
-    this.height=7
- 
+    this.height=10
   }
   draw(){
     c.fillStyle = "white"
@@ -125,7 +135,7 @@ class AlienBullet{
 }
 
 
-
+// The invader itself
 class Invader{
   constructor( {position} ){
     this.velocity = {
@@ -149,15 +159,17 @@ class Invader{
   };
 
   draw(){
+  // use the commented code below incase the program fails to load the image.
   //  c.fillStyle = "red";
   //  c.fillRect(this.position.x, this.position.y, this.width, this.height); 
     
     c.drawImage(
-      this.image, 
-      this.position.x, 
-      this.position.y, 
-      this.width, 
-      this.height);
+        this.image, 
+        this.position.x, 
+        this.position.y, 
+        this.width, 
+        this.height
+      );
     
   }
 
@@ -186,7 +198,7 @@ class Invader{
 }
 
 
-
+// The grouped invaders
 class InvaderContainer{
   constructor(){
     this.position = {
@@ -230,12 +242,17 @@ class InvaderContainer{
 }
 
 
-const player = new Player();
+const player = new Player(); // This code calls the animate() function in its constructor.
+
+/** Important arrays to store objects of the above class  */
 const invContainerArray = [new InvaderContainer()]
 const bullets = [];
 const invaderBullets = [];
 const particles = []
-// const invContainer = new InvaderContainer();
+
+/**
+ * values used for key press conditions
+ */
 const isKeyPressed = {
   a : {
     pressed: false
@@ -249,6 +266,9 @@ const isKeyPressed = {
 
 }
 
+/**
+ * To randomize the creation of invader grids and their bullets
+ */
 let randomRaining = 0;
 let randomNum = Math.ceil(Math.random()*500 + 400)
 const game = {
@@ -257,8 +277,8 @@ const game = {
 };
 
 
-//stars
-for(let i=0; i<100; i++){ 
+//The background stars
+for(let i=0; i<10; i++){ 
   particles.push(new Partiicles({
     position: {
       x: Math.random() * canvas.width,
@@ -273,7 +293,10 @@ for(let i=0; i<100; i++){
   }));
 }
 
-
+/**
+ * 
+ * To create particles for explosions 
+ */
 function createParticle({invader, color, radius, fades}){
   for(let i=0; i<15; i++){ 
     particles.push(new Partiicles({
@@ -282,17 +305,22 @@ function createParticle({invader, color, radius, fades}){
         y: invader.position.y + invader.height /2
       },
       velocity : {
-        x: Math.random(),
-        y: Math.random()
+        x: (Math.random() -0.5)*4,
+        y: (Math.random() -0.5)*4
       }, 
-      radius: radius ||Math.random() * 2,
+      radius: radius ||Math.random() * 3,
       color: color || "green" ,
-      fades: true
+      fades: fades
     }));
   }
 }
 
+/**
+ * 
+ * The main Part of the program and it include the requestAnimationFrame() function to have a smooth animation of objects.
+ */
 const animate = ()=>{
+  // Game over condition
   if(!game.isActive){
     return;
   }
@@ -301,6 +329,7 @@ const animate = ()=>{
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
 
+  // particles iteration
   particles.forEach((particle, i)=>{
 
     if(particle.position.y - particle.radius >= canvas.height){
@@ -317,8 +346,6 @@ const animate = ()=>{
     }
   });
 
-  // console.log(particles);
-
   invaderBullets.forEach((alienBullet, index)=>{
     if(alienBullet.position.y + alienBullet.height >= canvas.height){
       setTimeout(()=>{
@@ -327,8 +354,9 @@ const animate = ()=>{
     } else {
       alienBullet.update();
     }
+
  
-    //projectile hits player
+    //invader's bullet hits player
     if(
       alienBullet.position.y + alienBullet.height >= player.position.y &&
       alienBullet.position.x + alienBullet.width >= player.position.x &&
@@ -347,7 +375,9 @@ const animate = ()=>{
       createParticle({
         invader: player, 
         color: "white",
-        radius: 3 
+        radius: 3,
+        fades: true 
+
       });
     }
   });
@@ -360,49 +390,39 @@ const animate = ()=>{
     }
     console.log(bullets)
   });
-
   
   invContainerArray.forEach((grid, index)=>{
-    if(grid.position.y >= canvas.height){
-      setTimeout(()=>{
-        invContainerArray.splice(index, 1);
-      },0)
-    }
 
     grid.update();
     if(randomRaining % 200 === 0 && grid.invaders.length > 0){
     grid.invaders[Math.floor(Math.random()*grid.invaders.length)].shoot(invaderBullets);
-      console.log("hjh")
     }
     
     grid.invaders.forEach((invader, i)=>{       
       invader.update({velocity: grid.velocity})
 
-      //
-      
-      // if(
-      //   invader.position.y + invader.height >= player.position.y &&
-      //   invader.position.x + invader.width >= player.position.x &&
-      //   invader.position.x <= player.position.x + player.width
-      // ){
-      //   setTimeout(()=>{
-      //     player.opacity = 0;
-      //     game.over = true;
-      //   }, 0);
+      if(
+        invader.position.y + invader.height >= player.position.y &&
+        invader.position.x + invader.width >= player.position.x &&
+        invader.position.x <= player.position.x + player.width
+      ){
+        setTimeout(()=>{
+          invaderBullets.splice(index, 1);
+          player.opacity = 0;
+          game.over = true;
+        }, 0);
   
-      //   setTimeout(()=>{
-      //     game.isActive = false;
-      //   }, 2000);
-      //   console.log("you are loser.")
-      //   createParticle({
-      //     invader: player, 
-      //     color: "white",
-      //     radius: 3 
-      //   });
-      //   return;
-      // }
-  
-
+        setTimeout(()=>{
+          game.isActive = false;
+        }, 2000);
+        console.log("you are loser.")
+        createParticle({
+          invader: player, 
+          color: "white",
+          radius: 3,
+          fades: true
+        });
+      }
 
       bullets.forEach((bullet, j)=>{
         if( //collision detection conditions for the humanShip hitting alienSpaceShip
@@ -422,7 +442,8 @@ const animate = ()=>{
             if(alienFound && bulletFound){
               createParticle({
                 invader, 
-                color: "green"});
+                color: "green",
+              fades: true});
 
 
               setTimeout(()=>{
@@ -435,37 +456,14 @@ const animate = ()=>{
                 const lastInvader = grid.invaders[grid.invaders.length -1]; 
                 grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width;
                 grid.position.x = firstInvader.position.x;
-                grid.position.y = lastInvader.position.y + lastInvader.width;
-                // grid.height = lastInvader.position.y + lastInvader.height;
+              } else {
+                invContainerArray.splice(index, 1);
               }
-
-
             }
           }, 0);
         }
       })
-
-      // setTimeout(()=>{
-      //   if(grid.position.y + grid.height >= player.position.y){
-      //     createParticle({
-      //       invader: player, 
-      //       color: "white",
-      //       radius: 3 
-      //     });
-       
-      //     player.opacity = 0;
-      //     game.over = true;
-    
-      //   setTimeout(()=>{
-      //     game.isActive = false;
-      //   }, 2000);
-      //   console.log("you are loser.")
-      // }
-      // }, 0)
-      
-  
     })
-    // console.log(invContainerArray);
   })
  
   if(isKeyPressed.a.pressed && player.position.x >=0){
@@ -476,7 +474,7 @@ const animate = ()=>{
     player.velocity.x = 0;
   }
 
-  // raining the different invContainers
+  // Raining different invader's ship container
   if(randomRaining % randomNum === 0 ){
     invContainerArray.push(new InvaderContainer());
     randomNum = Math.ceil(Math.random()*500 + 400);
@@ -484,8 +482,11 @@ const animate = ()=>{
   }
   randomRaining++;
 }
-animate();
 
+
+/**
+ * The two keydown and keyup conditions
+ */
 window.addEventListener('keydown', (event)=>{
   if(game.over){
     return;

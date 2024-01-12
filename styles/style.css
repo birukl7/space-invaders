@@ -4,7 +4,10 @@ body{
   overflow: hidden;
 }
 
-canvas{
-  display: block;
-  /* width: 100%; */
+
+
+.canvas-contanier{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
