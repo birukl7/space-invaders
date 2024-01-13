@@ -42,6 +42,37 @@ const setScore = document.querySelector(".score-view");
 const setScoreOnGame = document.querySelector('.like-h2');
 
 
+
+//highest score
+let storeScore = JSON.parse(localStorage.getItem('setScoreValue')) || [];
+
+//restart icon
+const restartBtn = document.querySelector('.restart-btn');
+
+restartBtn.addEventListener('click', addEventListener()=>{
+  window.location.reload();
+})
+
+//reset button
+const resetBtn = document.querySelector('.right-container .reset');
+resetBtn.addEventListener('click', ()=>{
+  storeScore = [];
+  highestScore.innerHTML = 0;
+  console.log("preseesrs")
+})
+
+const highestScore = document.querySelector('.right-container .highest-score');
+const highScoreDisplay = (array)=>{
+  let max = array[0];
+  array.forEach((element)=>{
+    if(max < element){
+      max = element;
+    }
+  });
+  highestScore.innerHTML = max;
+}
+highScoreDisplay(storeScore);
+
 // Preparing it to start drawing
 const c = canvas.getContext('2d');
 canvas.width = canva.width;
@@ -363,7 +394,7 @@ const pauseAndResume = document.querySelector('#pause-and-resume');
 const pauseAndResumeBtn = document.querySelector('#pause-and-resume-btn')
 
 
-const storeScore = JSON.parse(localStorage.getItem('setScoreValue')) || [];
+
 
 /**
  * 

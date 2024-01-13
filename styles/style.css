@@ -37,8 +37,8 @@ audio{
   padding: 100px;
   color: black;
   background: linear-gradient(45deg, rgb(159, 233, 203) 30%, rgba(72, 126, 72, 0.3), rgba(115, 115, 228, 0.9) 1%);
-  top: calc(50% - 5em);
-  left: calc(50% - 6em);
+  top: calc(50% - 7em);
+  left: calc(50% - 5em);
   font-size: 3rem;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border-radius: 30px;
@@ -55,21 +55,39 @@ audio{
   margin-left: 3em;
 }
 
+.home-con{
+  cursor: pointer;
+}
+
+.restart-con{
+  cursor: pointer;
+}
+
 
 .game-over-inner{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 }
+  
 
-.game-over-inner .h2-game-over{
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  -webkit-text-stroke: 1px white;
+.game-over-img-container img{
+  width: 220px;
 }
 
 .game-over-inner .your-score{
   font-weight: bold;
   font-size: 2.1rem;
+  margin-left: -3px;
+}
+
+.img-container-home-restart .home-con{
+  margin-right: 25px;
+}
+
+.img-container-home-restart .restart-con{
+  margin-left: 25px;
 }
 
 
@@ -230,6 +248,8 @@ footer{
   right: 325px;
   margin-top: 8px;
 }
+
+
 
 .right-container button{
   padding: 1em;

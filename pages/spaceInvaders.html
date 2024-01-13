@@ -14,13 +14,16 @@
     </p>
     <div class="game-over">
       <div class="game-over-inner">
-        <h2 class="h2-game-over">Game Over</h2>
-        <h2 class="your-score">Your Score</h2> <span class="like-h2">1000</span>
+        <div class="game-over-img-container">
+          <img src="../images/GameOver.png" alt="" srcset="">
+        </div>
+        <h2 class="your-score">Your Score</h2> 
+        <span class="like-h2">1000</span>
         <div class="img-container-home-restart">
-          <span>
-            <img src="../images/house-solid.svg" alt="" class="to-home">
+          <span class="home-con">
+            <a href="../index.html"><img src="../images/house-solid.svg" alt="" class="to-home"></a>
           </span>
-          <span>
+          <span class="restart-con">
             <img src="../images/rotate-right-solid.svg" alt="" class="restart-game">
           </span>
         </div>
@@ -29,7 +32,7 @@
 
     <div class="right-container">
       <span class="highest">Highest:&#160;</span>
-      <span class="highest-score">1000</span>
+      <span class="highest-score">0</span>
       <button class="play" id="pause-and-resume-btn"><img id="pause-and-resume" src="../images/pause-solid.svg" alt="" srcset=""></button>
       <button class="sound"> <img src="../images/volume-xmark-solid.svg" alt=""></button>
       <button class="reset">reset socre</button>
