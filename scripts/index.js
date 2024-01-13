@@ -47,11 +47,9 @@ const setScoreOnGame = document.querySelector('.like-h2');
 let storeScore = JSON.parse(localStorage.getItem('setScoreValue')) || [];
 
 //restart icon
-const restartBtn = document.querySelector('.restart-btn');
+const restartBtn = document.querySelector('.restart-con');
 
-restartBtn.addEventListener('click', addEventListener()=>{
-  window.location.reload();
-})
+
 
 //reset button
 const resetBtn = document.querySelector('.right-container .reset');
@@ -103,6 +101,8 @@ class Player{
       // here is the program exexution starts.
       // animate function will be calles when we instatiate the Player class.
       setTimeout(()=>{
+        game.lastTimestamp = null;
+        game.over = false;
         animate();
       }, 2000)
     }
@@ -344,9 +344,12 @@ const isKeyPressed = {
 let randomRaining = 0;
 let randomNum = Math.ceil(Math.random()*500 + 400)
 const game = {
+  lastTimestamp: null,
   over: false,
   isActive: true
 };
+
+
 
 
 //The background stars
@@ -405,6 +408,8 @@ const animate = (timestamp)=>{
   if(!game.isActive){
     return;
   }
+
+
   if(!isPaused){
     animationRequestId = requestAnimationFrame(animate)
   }
@@ -489,7 +494,7 @@ const animate = (timestamp)=>{
   invContainerArray.forEach((grid, index)=>{
 
     grid.update();
-    if(randomRaining % 90 === 0 && grid.invaders.length > 0){
+    if(randomRaining % 50 === 0 && grid.invaders.length > 0){
     grid.invaders[Math.floor(Math.random()*grid.invaders.length)].shoot(invaderBullets);
     enemyShoot.play();
     }
@@ -593,6 +598,10 @@ const animate = (timestamp)=>{
 
 let player;
 pauseAndResumeBtn.addEventListener('click',()=>{
+  if(game.over){
+    game.over = false;
+    game.lastTimestamp = null;
+  }
   if(!player){
     player = new Player();
   }
@@ -610,6 +619,10 @@ pauseAndResumeBtn.addEventListener('click',()=>{
   }
 
 });
+
+restartBtn.addEventListener('click',()=>{
+  location.reload();
+})
 
  /**
  * The two keydown and keyup conditions
