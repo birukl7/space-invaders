@@ -3,13 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles/style.css">
-  <title>Space Invaders</title>
+  <title>Welcome to space Invaders! </title>
+  <link rel="stylesheet" href="../styles/style.css">
+
 </head>
 <body>
-  <div class="canvas-container">
-    <canvas></canvas>
+
+  <div class="container">
+    <div class="sound-img-container"><img src="images/volume-xmark-solid.svg" alt=""></div>
+    <h1> 
+      <img src="images/alienSpaceShip.png" alt="" class="alien"> 
+      <span class="the-space">space</span> 
+      <span class="the-rocket">invaders</span>
+      <img src="images/humanSpaceShip.png" alt="" class="space">
+    </h1>
+
+    <div class="img-container">
+      <a href="pages/spaceInvaders.html">
+        <img src="images/playButton.png" alt="play">
+      </a>
+      <audio src="sounds/Phoebe Bridgers - I Know The End.mp3" preload="auto" loop style="display: none;" class="front-page-background-sound"></audio>
+    </div>
+    <footer>coyright(c). all rights reserved.</footer>
   </div>
-  <script type="module" src="scripts/index.js"></script>
+
+  <script src="scripts/indexSpace.js"></script>
+  <script src="scripts/soundFirstPage.js"></script>
 </body>
 </html>

@@ -1,14 +1,33 @@
+import { setDimenstion} from "./dyanmicSize.js"
+
 
 // The canvas in the index.html
 const canvas = document.querySelector('canvas');
 
 
+{/* <audio src="" autoplay class="game-over"></audio>
+<audio src="" class="explode"></audio>
+<audio src="" class="shoot"></audio>
+<audio src="" class="bomb"></audio>
+<audio src="" class="enemy-shoot"></audio> */}
+
+ const canva = setDimenstion();
+const bomb= document.querySelector('.bomb');
+const gameOver = document.querySelector('.game-over');
+const enemyShoot = document.querySelector('.enemy-shoot');
+const shoot = document.querySelector('.shoot');
+const explode = document.querySelector('.explode');
+const backgroudSound = document.querySelector('.background');
+
+const setScore = document.querySelector(".score-view");
 // Preparing it to start drawing
 const c = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = canva.width;
+canvas.height = innerHeight - 120;
 
+const gameOverdDisplay = document.querySelector('.game-over')
 
+backgroudSound.play();
 // The player spaceship 
 class Player{
   constructor(){
@@ -17,8 +36,7 @@ class Player{
       y:0
     };
     const image = new Image();
-    image.src = 'images/humanSpaceShip.png';
-
+    image.src = '../images/humanSpaceShip.png';
     image.onload = ()=>{
       const scale = 0.05;
       this.image = image;
@@ -31,7 +49,9 @@ class Player{
 
       // here is the program exexution starts.
       // animate function will be calles when we instatiate the Player class.
-      animate();
+      setTimeout(()=>{
+        animate();
+      }, 2000)
     }
     this.opacity = 1
 
@@ -108,7 +128,7 @@ class Partiicles{
     this.position.x +=this.velocity.x;
     this.position.y +=this.velocity.y;
     if(this.fades)
-    this.opacity -= 0.21;
+    this.opacity -= 0.08;
   }
 }
 
@@ -143,7 +163,7 @@ class Invader{
       y:0
     };
     const image = new Image();
-    image.src = 'images/alienSpaceShip.png';
+    image.src = '../images/alienSpaceShip.png';
 
     image.onload = ()=>{
       const scale = 0.019;
@@ -249,7 +269,7 @@ const invContainerArray = [new InvaderContainer()]
 const bullets = [];
 const invaderBullets = [];
 const particles = []
-
+let score = 0;
 /**
  * values used for key press conditions
  */
@@ -278,7 +298,7 @@ const game = {
 
 
 //The background stars
-for(let i=0; i<10; i++){ 
+for(let i=0; i<30; i++){ 
   particles.push(new Partiicles({
     position: {
       x: Math.random() * canvas.width,
@@ -366,10 +386,14 @@ const animate = ()=>{
         invaderBullets.splice(index, 1);
         player.opacity = 0;
         game.over = true;
+        bomb.play()
+
       }, 0);
 
       setTimeout(()=>{
         game.isActive = false;
+        gameOverdDisplay.style.display = "block";
+        gameOver.play();
       }, 2000);
       console.log("you are loser.")
       createParticle({
@@ -384,18 +408,22 @@ const animate = ()=>{
 
   bullets.forEach((element, index) => {
     if(element.position.y + element.radius <= 0){
-      bullets.splice(index,1);
+      setTimeout(()=>{
+        bullets.splice(index,1);
+      }, 0)
+      
     } else {
       element.update();
     }
-    console.log(bullets)
+    console.log(bullets.length)
   });
   
   invContainerArray.forEach((grid, index)=>{
 
     grid.update();
-    if(randomRaining % 200 === 0 && grid.invaders.length > 0){
+    if(randomRaining % 90 === 0 && grid.invaders.length > 0){
     grid.invaders[Math.floor(Math.random()*grid.invaders.length)].shoot(invaderBullets);
+    enemyShoot.play();
     }
     
     grid.invaders.forEach((invader, i)=>{       
@@ -410,10 +438,12 @@ const animate = ()=>{
           invaderBullets.splice(index, 1);
           player.opacity = 0;
           game.over = true;
+          bomb.play();
         }, 0);
   
         setTimeout(()=>{
           game.isActive = false;
+          gameOver.play();
         }, 2000);
         console.log("you are loser.")
         createParticle({
@@ -440,6 +470,8 @@ const animate = ()=>{
               return bullet1 === bullet;
             })
             if(alienFound && bulletFound){
+              score += 10;
+              setScore.innerHTML = score;
               createParticle({
                 invader, 
                 color: "green",
@@ -449,6 +481,7 @@ const animate = ()=>{
               setTimeout(()=>{
                 grid.invaders.splice(i, 1);  
                 bullets.splice(j,1)
+                explode.play();
               },0);
 
               if(grid.invaders.length >0){
@@ -457,7 +490,9 @@ const animate = ()=>{
                 grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width;
                 grid.position.x = firstInvader.position.x;
               } else {
-                invContainerArray.splice(index, 1);
+                setTimeout(()=>{
+                  invContainerArray.splice(index, 1);
+                }, 0)
               }
             }
           }, 0);
@@ -501,6 +536,7 @@ window.addEventListener('keydown', (event)=>{
       isKeyPressed.d.pressed = true;
       break;
     case ' ':
+      shoot.play();
       console.log("space")
       bullets.push(new Bullet({
         position:{

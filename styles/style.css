@@ -1,13 +1,266 @@
 body{
-  margin: 0;
-  padding: 0; 
-  overflow: hidden;
-}
+  background-image: url('../images/spacePicture.png');
 
-
-
-.canvas-contanier{
+  background-attachment: fixed;
+  
+  margin: 0 auto;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: hidden;
+  background-color: black;
+  color: white;
+  animation: backgrounds 20s linear infinite;
 }
+
+@keyframes backgrounds {
+  from{
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+
+audio{
+  display: none;
+}
+
+.canvas-conatainer{
+  position: relative;
+  align-self: center;
+}
+
+.game-over{
+  position: absolute;
+  padding: 45px;
+  color: black;
+  background: linear-gradient(45deg, rgb(185, 223, 208), rgb(72, 126, 72), rgb(105, 105, 199));
+  top: calc(50% - 5em);
+  left: calc(50% - 6em);
+  font-size: 3rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-radius: 30px;
+  border-top-left-radius: 80px;
+  display: none;
+}
+
+.game-over .your-score{
+  display: block;
+  font-size: 2rem;
+  margin: 0;
+  margin-top: 1em;
+  margin-left: 3em;
+}
+
+
+.game-over-inner{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  
+}
+
+.game-over-inner .like-h2{
+  font-size: 20px;
+  text-align: center;
+  padding: 30px;
+}
+
+.game-over h2{
+  margin-bottom: 0;
+  -webkit-text-stroke: 1px 1px 4px black;
+}
+
+.game-over .img-container-home-restart{
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-over .img-container-home-restart span{
+  padding: 0.35em;
+  border-radius: 40px;
+  background-color: black;
+}
+
+.game-over .img-container-home-restart img{
+  width: 50px;
+  height: 50px;
+}
+
+
+.sound-img-container{
+  align-self: flex-end;
+  margin-top: 30px;
+  height: 30px;
+}
+
+.sound-img-container img{
+  width: 35px;
+}
+
+p{
+  margin: 0;
+}
+
+.score{
+  color: white;
+  position: relative;
+  top: 15px;
+  left: 30px;
+  font-size: 1.3rem;
+  padding: 1em
+}
+
+
+
+h1{
+  position: relative;
+  font-size: 10rem;
+  text-transform: capitalize;
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-shadow: 1px 2px 4px wheat;
+}
+
+h1 img.alien {
+  position: absolute;
+  width: 50px;
+  top: -8px;
+  right: 605px;
+  animation: invader 10s ease-in-out infinite;
+}
+
+@keyframes invader {
+  0% {
+    right: 605px;
+  }
+  50%{
+    right: 100px
+  }
+  100% {
+    right: 605px;
+  }
+}
+
+h1 img.space {
+  position: absolute;
+  width: 50px;
+  left: 900px;
+  top: 390px;
+  animation: spaceShip 25s ease-in-out infinite;
+}
+
+@keyframes spaceShip {
+  0% {
+    left: 900px;
+  }
+  45% {
+    left: 30px;
+  }
+  65% {
+    left: 900px;
+    top: 200px;
+  }
+  85%{
+    top: 700px;
+    left: 500px;
+  }
+  100%{
+    left: 900px;
+    top: 390px;
+  }
+
+}
+
+.the-space{
+  color:rgb(179, 228, 187)
+}
+
+.the-rocket{
+  color: rgb(255, 255, 255);
+}
+
+footer{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  letter-spacing: 0.23rem;
+}
+
+
+
+
+.container{
+  max-width: 1000px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.img-container img{
+  width: 5em;
+}
+
+.img-container{
+  padding-bottom: 150px;
+}
+
+/** 
+  //The game page styles
+*/
+
+.right-container{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: -35px;
+  padding: 1em;
+  right: 325px;
+  margin-top: 8px;
+}
+
+.right-container button{
+  padding: 1em;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+}
+
+.right-container .play{
+  background-color: transparent;
+  border: none;
+}
+
+.right-container span{
+  font-size: 1.3rem;
+}
+
+.right-container .highest-score{
+  margin-right: 3em;
+}
+
+.right-container img{
+  width: 30px;
+}
+
+.right-container button.reset{
+  padding: 0.5em 2em 0.5em 2em;
+  border-radius: 0.7em;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background-color: #BCF7FB;
+  color: black;
+}
+
+/* canvas{
+  outline: 3px solid white;
+} */
+
+@media screen and (max-width: 460px) {
+  h1{
+    font-size: 5rem;
+  }
+}
+
