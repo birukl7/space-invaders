@@ -1,4 +1,26 @@
-import { setDimenstion} from "./dyanmicSize.js"
+
+function setDimenstion(){
+  const canva ={
+    width: 0
+  }
+  if(window.matchMedia('(max-width: 600px)').matches){
+    canva.width = 700;
+  }else if(window.matchMedia('(min-width: 601px) and (max-width: 1024px)').matches){
+    canva.width = 1024;
+  } else {
+    canva.width = 1350;
+  }
+
+  return canva;
+}
+
+
+
+
+/**
+ * Flile handling code
+ */
+
 
 
 // The canvas in the index.html
@@ -12,14 +34,21 @@ const canvas = document.querySelector('canvas');
 <audio src="" class="enemy-shoot"></audio> */}
 
  const canva = setDimenstion();
+
+/**
+ * Elements of sounds
+ */
 const bomb= document.querySelector('.bomb');
-const gameOver = document.querySelector('.game-over');
+const gameOver = document.querySelector("#game-over-game-over")
 const enemyShoot = document.querySelector('.enemy-shoot');
 const shoot = document.querySelector('.shoot');
 const explode = document.querySelector('.explode');
-const backgroudSound = document.querySelector('.background');
 
+//for the score
 const setScore = document.querySelector(".score-view");
+const setScoreOnGame = document.querySelector('.like-h2');
+
+
 // Preparing it to start drawing
 const c = canvas.getContext('2d');
 canvas.width = canva.width;
@@ -27,7 +56,7 @@ canvas.height = innerHeight - 120;
 
 const gameOverdDisplay = document.querySelector('.game-over')
 
-backgroudSound.play();
+
 // The player spaceship 
 class Player{
   constructor(){
@@ -386,14 +415,18 @@ const animate = ()=>{
         invaderBullets.splice(index, 1);
         player.opacity = 0;
         game.over = true;
+        setScoreOnGame.innerHTML = score;
+        appendToLogFile(score,'../files/scores.txt')
+
         bomb.play()
 
       }, 0);
 
       setTimeout(()=>{
         game.isActive = false;
-        gameOverdDisplay.style.display = "block";
         gameOver.play();
+        console.log("UI")
+        gameOverdDisplay.style.display = "block";
       }, 2000);
       console.log("you are loser.")
       createParticle({
@@ -438,6 +471,7 @@ const animate = ()=>{
           invaderBullets.splice(index, 1);
           player.opacity = 0;
           game.over = true;
+          setScoreOnGame.innerHTML = score;
           bomb.play();
         }, 0);
   

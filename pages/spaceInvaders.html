@@ -14,7 +14,7 @@
     </p>
     <div class="game-over">
       <div class="game-over-inner">
-        <h2>Game Over</h2>
+        <h2 class="h2-game-over">Game Over</h2>
         <h2 class="your-score">Your Score</h2> <span class="like-h2">1000</span>
         <div class="img-container-home-restart">
           <span>
@@ -26,21 +26,25 @@
         </div>
       </div>
     </div>
+
     <div class="right-container">
       <span class="highest">Highest:&#160;</span>
       <span class="highest-score">0</span>
-      <button class="play"><img src="../images/pause-solid.svg" alt="" srcset=""></button>
+      <button class="play" ><img src="../images/pause-solid.svg" alt="" srcset=""></button>
+      <button class="sound"> <img src="../images/volume-xmark-solid.svg" alt=""></button>
       <button class="reset">reset socre</button>
     </div>
+    
     <canvas>
     </canvas>
   </div>
   <audio src="../sounds/01 Porter Robinson - Divinity (3).mp3"  loop style="display: none;" class="background" preload="auto"></audio>
-  <audio src="../sounds/gameOver.mp3" class="game-over" preload="auto"></audio>
+  <audio src="../sounds/gameOver.mp3" class="game-over" id="game-over-game-over" preload="auto"></audio>
   <audio src="../sounds/explode.wav" class="explode" preload="auto"></audio>
   <audio src="../sounds/shoot.wav" class="shoot" preload="auto"></audio>
   <audio src="../sounds/bomb.mp3" class="bomb" preload="auto"></audio>
   <audio src="../sounds/enemyShoot.wav" class="enemy-shoot" preload="auto"></audio>
-  <script type="module" src="../scripts/index.js"></script>
+  <script src="../scripts/index.js"></script>
+  <script src="../scripts/soundSecondPage.js"></script>
 </body>
 </html>
