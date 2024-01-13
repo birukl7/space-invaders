@@ -16,13 +16,6 @@ function setDimenstion(){
 
 
 
-
-/**
- * Flile handling code
- */
-
-
-
 // The canvas in the index.html
 const canvas = document.querySelector('canvas');
 
@@ -162,7 +155,6 @@ class Partiicles{
 }
 
 
-
 // The white invader's spaceship bullet
 class AlienBullet{
   constructor({position, velocity}){
@@ -291,7 +283,7 @@ class InvaderContainer{
 }
 
 
-const player = new Player(); // This code calls the animate() function in its constructor.
+// This code calls the animate() function in its constructor.
 
 /** Important arrays to store objects of the above class  */
 const invContainerArray = [new InvaderContainer()]
@@ -364,16 +356,29 @@ function createParticle({invader, color, radius, fades}){
   }
 }
 
+// code for pausing and resume the game
+let isPaused = false;
+let animationRequestId;
+const pauseAndResume = document.querySelector('#pause-and-resume');
+const pauseAndResumeBtn = document.querySelector('#pause-and-resume-btn')
+
+
+const storeScore = JSON.parse(localStorage.getItem('setScoreValue')) || [];
+
 /**
  * 
  * The main Part of the program and it include the requestAnimationFrame() function to have a smooth animation of objects.
  */
-const animate = ()=>{
+const animate = (timestamp)=>{
   // Game over condition
   if(!game.isActive){
     return;
   }
-  requestAnimationFrame(animate);
+  if(!isPaused){
+    animationRequestId = requestAnimationFrame(animate)
+  }
+
+
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
@@ -416,10 +421,9 @@ const animate = ()=>{
         player.opacity = 0;
         game.over = true;
         setScoreOnGame.innerHTML = score;
-        appendToLogFile(score,'../files/scores.txt')
-
+        storeScore.push(score);
+        localStorage.setItem('setScoreValue', JSON.stringify(storeScore));
         bomb.play()
-
       }, 0);
 
       setTimeout(()=>{
@@ -471,12 +475,15 @@ const animate = ()=>{
           invaderBullets.splice(index, 1);
           player.opacity = 0;
           game.over = true;
+          storeScore.push(score);
+          localStorage.setItem('setScoreValue', JSON.stringify(storeScore));
           setScoreOnGame.innerHTML = score;
           bomb.play();
         }, 0);
   
         setTimeout(()=>{
           game.isActive = false;
+          gameOverdDisplay.style.display = "block";
           gameOver.play();
         }, 2000);
         console.log("you are loser.")
@@ -550,10 +557,30 @@ const animate = ()=>{
     randomRaining = 0;
   }
   randomRaining++;
+
 }
 
+let player;
+pauseAndResumeBtn.addEventListener('click',()=>{
+  if(!player){
+    player = new Player();
+  }
 
-/**
+  if(isPaused){
+    isPaused = false;
+    pauseAndResume.src = "../images/pause-solid.svg"
+    animate();
+    console.log('game started')
+  } else {
+    isPaused = true;
+    pauseAndResume.src = '../images/play-solid.svg';
+    cancelAnimationFrame(animationRequestId);
+    console.log('game- paused');
+  }
+
+});
+
+ /**
  * The two keydown and keyup conditions
  */
 window.addEventListener('keydown', (event)=>{
@@ -570,6 +597,9 @@ window.addEventListener('keydown', (event)=>{
       isKeyPressed.d.pressed = true;
       break;
     case ' ':
+      if(isPaused){
+        return;
+      }
       shoot.play();
       console.log("space")
       bullets.push(new Bullet({
@@ -583,6 +613,23 @@ window.addEventListener('keydown', (event)=>{
         }
       }))
       isKeyPressed.space.pressed = true;
+      break;
+    case 'e':
+        if(!player){
+          player = new Player();
+        }
+
+        if(isPaused){
+          isPaused = false;
+          pauseAndResume.src = "../images/pause-solid.svg"
+          animate();
+          console.log('game started')
+        } else {
+          isPaused = true;
+          pauseAndResume.src = '../images/play-solid.svg';
+          cancelAnimationFrame(animationRequestId);
+          console.log('game- paused');
+        }
       break;
   }
 });
@@ -603,4 +650,6 @@ window.addEventListener('keyup', (event)=>{
       break;
   }
 });
+
+player = new Player();
 
