@@ -46,7 +46,6 @@ const resetBtn = document.querySelector('.right-container .reset');
 resetBtn.addEventListener('click', ()=>{
   storeScore = [];
   highestScore.innerHTML = 0;
-  console.log("preseesrs")
 })
 
 const highestScore = document.querySelector('.right-container .highest-score');
@@ -451,10 +450,8 @@ const animate = (timestamp)=>{
       setTimeout(()=>{
         game.isActive = false;
         gameOver.play();
-        console.log("UI")
         gameOverdDisplay.style.display = "block";
       }, 2000);
-      console.log("you are loser.")
       createParticle({
         invader: player, 
         color: "white",
@@ -474,7 +471,6 @@ const animate = (timestamp)=>{
     } else {
       element.update();
     }
-    console.log(bullets.length)
   });
   
   invContainerArray.forEach((grid, index)=>{
@@ -508,7 +504,6 @@ const animate = (timestamp)=>{
           gameOverdDisplay.style.display = "block";
           gameOver.play();
         }, 2000);
-        console.log("you are loser.")
         createParticle({
           invader: player, 
           color: "white",
@@ -524,8 +519,7 @@ const animate = (timestamp)=>{
           bullet.position.x - bullet.radius <= invader.position.x+invader.width && 
           bullet.position.y + bullet.radius >= invader.position.y
           ){
-
-          setTimeout(()=>{
+            
             const alienFound = grid.invaders.find((invader1)=>{
               return invader1 === invader;
             })
@@ -550,15 +544,17 @@ const animate = (timestamp)=>{
               if(grid.invaders.length >0){
                 const firstInvader = grid.invaders[0];
                 const lastInvader = grid.invaders[grid.invaders.length -1]; 
+
                 grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width;
                 grid.position.x = firstInvader.position.x;
+                console.log('grid.width:'+ grid.width);
+                console.log("grid-position"+ grid.position.x)
               } else {
                 setTimeout(()=>{
                   invContainerArray.splice(index, 1);
                 }, 0)
               }
             }
-          }, 0);
         }
       })
     })
@@ -596,12 +592,10 @@ pauseAndResumeBtn.addEventListener('click',()=>{
     isPaused = false;
     pauseAndResume.src = "../images/pause-solid.svg"
     animate();
-    console.log('game started')
   } else {
     isPaused = true;
     pauseAndResume.src = '../images/play-solid.svg';
     cancelAnimationFrame(animationRequestId);
-    console.log('game- paused');
   }
 
 });
@@ -620,7 +614,6 @@ window.addEventListener('keydown', (event)=>{
   const theKey = event.key.toLowerCase();
   switch(theKey){
     case 'a':
-      console.log('left')
       isKeyPressed.a.pressed = true;
       break;
     case 'd':
@@ -631,7 +624,6 @@ window.addEventListener('keydown', (event)=>{
         return;
       }
       shoot.play();
-      console.log("space")
       bullets.push(new Bullet({
         position:{
           x: player.position.x + player.width/2,
@@ -653,12 +645,10 @@ window.addEventListener('keydown', (event)=>{
           isPaused = false;
           pauseAndResume.src = "../images/pause-solid.svg"
           animate();
-          console.log('game started')
         } else {
           isPaused = true;
           pauseAndResume.src = '../images/play-solid.svg';
           cancelAnimationFrame(animationRequestId);
-          console.log('game- paused');
         }
       break;
   }
@@ -668,11 +658,9 @@ window.addEventListener('keyup', (event)=>{
   const theKey = event.key.toLowerCase();
   switch(theKey){
     case 'a':
-      console.log("Left")
       isKeyPressed.a.pressed = false;
       break;
     case 'd':
-      console.log("right")
       isKeyPressed.d.pressed = false;
       break;
     case ' ':

@@ -290,9 +290,9 @@ footer{
   border: none;
 }
 
-/* canvas{
+canvas{
   outline: 3px solid white;
-} */
+}
 
 @media screen and (max-width: 460px) {
   h1{
