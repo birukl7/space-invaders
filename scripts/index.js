@@ -56,7 +56,11 @@ const highScoreDisplay = (array)=>{
       max = element;
     }
   });
-  highestScore.innerHTML = max;
+  if(max){
+    highestScore.innerHTML = max;
+  } else {
+    highestScore.innerHTML = 0;
+  }
 }
 highScoreDisplay(storeScore);
 
@@ -519,7 +523,7 @@ const animate = (timestamp)=>{
           bullet.position.x - bullet.radius <= invader.position.x+invader.width && 
           bullet.position.y + bullet.radius >= invader.position.y
           ){
-            
+
             const alienFound = grid.invaders.find((invader1)=>{
               return invader1 === invader;
             })
@@ -545,10 +549,10 @@ const animate = (timestamp)=>{
                 const firstInvader = grid.invaders[0];
                 const lastInvader = grid.invaders[grid.invaders.length -1]; 
 
-                grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width;
                 grid.position.x = firstInvader.position.x;
-                console.log('grid.width:'+ grid.width);
-                console.log("grid-position"+ grid.position.x)
+                grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width;
+                console.log('grid.width:'+ firstInvader);
+                console.log("grid-position"+ lastInvader)
               } else {
                 setTimeout(()=>{
                   invContainerArray.splice(index, 1);
