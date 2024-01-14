@@ -523,6 +523,8 @@ const animate = (timestamp)=>{
           bullet.position.x - bullet.radius <= invader.position.x+invader.width && 
           bullet.position.y + bullet.radius >= invader.position.y
           ){
+            setTimeout(()=>{
+              
 
             const alienFound = grid.invaders.find((invader1)=>{
               return invader1 === invader;
@@ -559,6 +561,7 @@ const animate = (timestamp)=>{
                 }, 0)
               }
             }
+          },0)
         }
       })
     })
