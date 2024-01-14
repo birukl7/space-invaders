@@ -4,27 +4,19 @@ function setDimenstion(){
     width: 0
   }
   if(window.matchMedia('(max-width: 600px)').matches){
-    canva.width = 700;
+    canva.width = 500;
   }else if(window.matchMedia('(min-width: 601px) and (max-width: 1024px)').matches){
-    canva.width = 1024;
+    canva.width = 700;
   } else {
-    canva.width = 1350;
+    canva.width = 950;
   }
-
   return canva;
 }
-
 
 
 // The canvas in the index.html
 const canvas = document.querySelector('canvas');
 
-
-{/* <audio src="" autoplay class="game-over"></audio>
-<audio src="" class="explode"></audio>
-<audio src="" class="shoot"></audio>
-<audio src="" class="bomb"></audio>
-<audio src="" class="enemy-shoot"></audio> */}
 
  const canva = setDimenstion();
 
@@ -42,13 +34,11 @@ const setScore = document.querySelector(".score-view");
 const setScoreOnGame = document.querySelector('.like-h2');
 
 
-
 //highest score
 let storeScore = JSON.parse(localStorage.getItem('setScoreValue')) || [];
 
 //restart icon
 const restartBtn = document.querySelector('.restart-con');
-
 
 
 //reset button
@@ -74,7 +64,7 @@ highScoreDisplay(storeScore);
 // Preparing it to start drawing
 const c = canvas.getContext('2d');
 canvas.width = canva.width;
-canvas.height = innerHeight - 120;
+canvas.height = 620;
 
 const gameOverdDisplay = document.querySelector('.game-over')
 
@@ -89,7 +79,7 @@ class Player{
     const image = new Image();
     image.src = '../images/humanSpaceShip.png';
     image.onload = ()=>{
-      const scale = 0.05;
+      const scale = 0.03;
       this.image = image;
       this.width = image.width * scale;
       this.height = image.height * scale;
@@ -140,7 +130,7 @@ class Bullet{
   constructor({position, velocity}){
     this.position = position
     this.velocity = velocity
-    this.radius = 4
+    this.radius = 3
   }
   draw(){
     c.beginPath()
@@ -191,8 +181,8 @@ class AlienBullet{
   constructor({position, velocity}){
     this.position = position
     this.velocity = velocity
-    this.width =4 
-    this.height=10
+    this.width =3 
+    this.height=8
   }
   draw(){
     c.fillStyle = "white"
@@ -218,7 +208,7 @@ class Invader{
     image.src = '../images/alienSpaceShip.png';
 
     image.onload = ()=>{
-      const scale = 0.019;
+      const scale = 0.012;
       this.image = image;
       this.width = image.width * scale;
       this.height = image.height * scale;
@@ -279,23 +269,23 @@ class InvaderContainer{
     }  
 
     this.velocity = {
-      x: 5,
+      x: 3.5,
       y: 0
     }
     
     this.invaders = [];
     const column = Math.ceil(Math.random()*9 + 3);
-    const row = Math.ceil(Math.random()*8 + 3);
+    const row = Math.ceil(Math.random()*7 + 1);
 
-    this.width = column * 45;
-    this.height = row * 45;
+    this.width = column * 35;
+    this.height = row * 35;
 
     for(let i=0; i<column; i++){
       for(let j=0; j<row; j++){
         this.invaders.push(new Invader({
           position:{
-            x: i * 45,
-            y: j * 45
+            x: i * 35,
+            y: j * 35
           }
         }));
       }
@@ -350,8 +340,6 @@ const game = {
 };
 
 
-
-
 //The background stars
 for(let i=0; i<30; i++){ 
   particles.push(new Partiicles({
@@ -363,7 +351,7 @@ for(let i=0; i<30; i++){
       x: 0.1,
       y: 0.2
     }, 
-    radius: Math.random() * 2,
+    radius: Math.random() * 1,
     color: "white" 
   }));
 }
@@ -395,8 +383,6 @@ let isPaused = false;
 let animationRequestId;
 const pauseAndResume = document.querySelector('#pause-and-resume');
 const pauseAndResumeBtn = document.querySelector('#pause-and-resume-btn')
-
-
 
 
 /**

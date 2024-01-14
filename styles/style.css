@@ -1,14 +1,13 @@
 body{
   background-image: url('../images/spacePicture.png');
-
   background-attachment: fixed;
-  
   margin: 0 auto;
   padding: 0;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  overflow-y: hidden;
+  overflow: hidden;
   background-color: black;
   color: white;
   animation: backgrounds 20s linear infinite;
@@ -27,22 +26,22 @@ audio{
   display: none;
 }
 
-.canvas-conatainer{
+.canvas-container{
   position: relative;
-  align-self: center;
+  margin-top: 50px;
 }
 
 .game-over{
   position: absolute;
-  padding: 100px;
+  padding: 25px 40px 25px 40px;
   color: black;
   background: linear-gradient(45deg, rgb(159, 233, 203) 30%, rgba(72, 126, 72, 0.3), rgba(115, 115, 228, 0.9) 1%);
-  top: calc(50% - 7em);
-  left: calc(50% - 5em);
-  font-size: 3rem;
+  top: calc(45% - 4em);
+  left: calc(45% - 2.5em);
+  font-size: 2rem;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  border-radius: 30px;
-  border-top-left-radius: 80px;
+  border-radius: 24px;
+  border-top-left-radius: 60px;
   display: none;
   box-shadow: 2px 2px 4px white;
 }
@@ -51,8 +50,8 @@ audio{
   display: block;
   font-size: 2rem;
   margin: 0;
-  margin-top: 1em;
-  margin-left: 3em;
+  margin-top: 0.5em;
+  margin-left: 2em;
 }
 
 .home-con{
@@ -73,28 +72,28 @@ audio{
   
 
 .game-over-img-container img{
-  width: 220px;
+  width: 150px;
 }
 
 .game-over-inner .your-score{
   font-weight: bold;
-  font-size: 2.1rem;
+  font-size: 1.5rem;
   margin-left: -3px;
 }
 
 .img-container-home-restart .home-con{
-  margin-right: 25px;
+  margin-right: 60px;
 }
 
 .img-container-home-restart .restart-con{
-  margin-left: 25px;
+  margin-left: 60px;
 }
 
 
 .game-over-inner .like-h2{
-  font-size: 23px;
+  font-size: 16px;
   text-align: center;
-  padding: 30px;
+  padding: 20px;
 }
 
 .game-over h2{
@@ -107,18 +106,19 @@ audio{
 }
 
 .game-over .img-container-home-restart span{
-  padding: 0.35em;
+  padding: 0.30em;
   border-radius: 40px;
   background-color: black;
 }
 
 .game-over .img-container-home-restart img{
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
 }
 
 
 .sound-img-container{
+  cursor: pointer;
   align-self: flex-end;
   margin-top: 30px;
   height: 30px;
@@ -134,18 +134,14 @@ p{
 
 .score{
   color: white;
-  position: relative;
-  top: 15px;
-  left: 30px;
-  font-size: 1.3rem;
-  padding: 1em
+  font-size: 1rem;
 }
 
 
 
 h1{
   position: relative;
-  font-size: 10rem;
+  font-size: 7rem;
   text-transform: capitalize;
   text-align: center;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -154,7 +150,7 @@ h1{
 
 h1 img.alien {
   position: absolute;
-  width: 50px;
+  width: 60px;
   top: -8px;
   right: 605px;
   animation: invader 10s ease-in-out infinite;
@@ -174,7 +170,7 @@ h1 img.alien {
 
 h1 img.space {
   position: absolute;
-  width: 50px;
+  width: 35px;
   left: 900px;
   top: 390px;
   animation: spaceShip 25s ease-in-out infinite;
@@ -241,19 +237,25 @@ footer{
 
 .right-container{
   display: flex;
+  justify-content: space-between;
   align-items: center;
   position: absolute;
-  top: -35px;
-  padding: 1em;
-  right: 325px;
-  margin-top: 8px;
+  top: -52px;
+  right: 0px;
+  left: 0px;
+
+}
+
+#buttons-pause-sound{
+  display: flex;
+  align-items: center;
 }
 
 
 
 .right-container button{
-  padding: 1em;
-  font-size: 1.3rem;
+  padding: 0.9em;
+  font-size: 1rem;
   letter-spacing: 2px;
   text-transform: capitalize;
   cursor: pointer;
@@ -266,7 +268,7 @@ footer{
 }
 
 .right-container span{
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .right-container .highest-score{
@@ -274,17 +276,18 @@ footer{
 }
 
 .right-container img{
-  width: 30px;
+  width: 20px;
 }
 
 .right-container button.reset{
   padding: 0.5em 2em 0.5em 2em;
   border-radius: 0.7em;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   background-color: #BCF7FB;
   /* background: linear-gradient(45deg, rgb(159, 233, 203) 30%, rgba(72, 126, 72, 0.3), rgba(115, 115, 228, 0.9) 1%); */
   color: black;
+  border: none;
 }
 
 /* canvas{
