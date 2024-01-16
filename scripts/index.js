@@ -178,7 +178,6 @@ class Partiicles{
   }
 }
 
-
 // The white invader's spaceship bullet
 class AlienBullet{
   constructor({position, velocity}){
@@ -198,7 +197,6 @@ class AlienBullet{
     this.position.y +=this.velocity.y;
   }
 }
-
 
 // The invader itself
 class Invader{
@@ -261,7 +259,6 @@ class Invader{
     }
   }
 }
-
 
 // The grouped invaders
 class InvaderContainer{
@@ -493,7 +490,7 @@ const animate = (timestamp)=>{
         invader.position.x + invader.width >= player.position.x &&
         invader.position.x <= player.position.x + player.width
       ){
-        setTimeout(()=>{
+        setTimeout(()=>{-
           invaderBullets.splice(index, 1);
           player.opacity = 0;
           game.over = true;
