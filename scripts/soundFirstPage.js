@@ -1,10 +1,13 @@
 const image = document.querySelector('.sound-img-container img');
-const btn = document.querySelector('.sound-img-container')
+
+const menu = document.querySelector('.humburger-menu');
+const controller = document.querySelector('.container .controlles');
 
 const backgroudSound = document.querySelector('.front-page-background-sound');
 
 
 let isOff = true;
+let isOffController = true;
 function turnOnBackgroundSound(){
   if(isOff){
     image.src ="images/volume-high-solid.svg";
@@ -14,7 +17,20 @@ function turnOnBackgroundSound(){
     backgroudSound.pause();
   }
   isOff = !isOff;
-  console.log(isOff)
 }
 
-btn.addEventListener('click', turnOnBackgroundSound);
+image.addEventListener('click', turnOnBackgroundSound);
+menu.addEventListener('click',()=>{
+  console.log('anything')
+  if(isOffController){
+    setTimeout(()=>{
+      controller.classList.add('is-active-controller');
+      menu.classList.add('is-active');
+    }, 100);
+  } else if(!isOffController){
+    // controller.style.display = 'none';
+    controller.classList.remove('is-active-controller');
+    menu.classList.remove('is-active');
+  }
+  isOffController = !isOffController;
+});
