@@ -396,7 +396,8 @@ footer{
   width: 20px;
 }
 
-.right-container button.reset{
+.right-container button.reset,
+.right-container button.go-back{
   padding: 0.5em 2em 0.5em 2em;
   border-radius: 0.7em;
   cursor: pointer;
@@ -407,8 +408,18 @@ footer{
   border: none;
 }
 
+.right-container button.go-back{
+  margin-left: 3px;
+}
+
 canvas{
   outline: 3px solid white;
+}
+
+#volumeControl {
+  width: 20%;
+  background-color: white;
+  
 }
 
 @media screen and (max-width: 460px) {

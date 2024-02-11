@@ -36,14 +36,16 @@
         <span class="highest-score">0</span>
         <button class="play" id="pause-and-resume-btn"><img id="pause-and-resume" src="../images/pause-solid.svg" alt="" srcset=""></button>
         <button class="sound"> <img src="../images/volume-xmark-solid.svg" alt=""></button>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0"/>
         <button class="reset">reset socre</button>
+        <button class="go-back">Go Back</button>
       </div>
     </div>
 
     <canvas>
     </canvas>
   </div>
-  <audio src="../sounds/01 Porter Robinson - Divinity (3).mp3"  loop style="display: none;" class="background" preload="auto"></audio>
+  <audio src="../sounds/background(porter).mp3"  loop style="display: none;" class="background" preload="auto"></audio>
   <audio src="../sounds/gameOver.mp3" class="game-over" id="game-over-game-over" preload="auto"></audio>
   <audio src="../sounds/explode.wav" class="explode" preload="auto"></audio>
   <audio src="../sounds/shoot.wav" class="shoot" preload="auto"></audio>
