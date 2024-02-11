@@ -1,6 +1,6 @@
-Title: Space Invaders Game 
+**Title**: Space Invaders Game 
 
-Group: 4
+**Group**: 4
 
 Group Members: 
 ------------------------------------------------------------------------------------------------------ 
